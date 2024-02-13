@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 @Table(name = "EIL_FOLDER_TEMPLATES")
 public class EILFolderTemplates {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TEMPLATEID")
     private String templateId;
 

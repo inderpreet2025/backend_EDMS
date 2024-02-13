@@ -10,7 +10,6 @@ public class EILDiscipline {
     @Column(name = "DISCIPLINEID")
     private String id;
 
-
     @Column(name = "DIVISIONID")
     private int divisionId;
 

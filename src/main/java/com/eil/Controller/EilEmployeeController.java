@@ -35,7 +35,7 @@ public class EilEmployeeController {
     }
 
     @PostMapping("/login")
-    public EilEmployee login(@RequestParam String username, @RequestParam String password) {
-        return employeeService.login(username, password);
+    public EilEmployee login(@RequestBody LoginRequest loginRequest) {
+        return employeeService.login(loginRequest.getUsername(), loginRequest.getPassword());
     }
 }
