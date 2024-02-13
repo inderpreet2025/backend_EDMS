@@ -3,11 +3,13 @@ package com.eil.Entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "eil_discipline")
+@Table(name = "EIL_DISCIPLINE")
 public class EILDiscipline {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DISCIPLINEID")
     private String id;
+
 
     @Column(name = "DIVISIONID")
     private int divisionId;

@@ -20,29 +20,21 @@ public class EILFolderTemplateService {
     }
 
     public EILFolderTemplates addFolderTemplate(EILFolderTemplates folderTemplate) {
-        // Generate a unique ID for the new folder template
         String newTemplateId = UUID.randomUUID().toString();
         folderTemplate.setTemplateId(newTemplateId);
 
-        // Set the creation date
+
         folderTemplate.setCreationDate(new Timestamp(System.currentTimeMillis()));
 
-        // If the folder has a parent folder, set the hierarchical relationship
         if (folderTemplate.getTmplParentFolderId() != null) {
-            //  assume the parent folder is already in the database
-            // and has a valid ID.
-
-            // Set the hierarchical relationship
             EILFolderTemplates parentFolder = folderTemplateRepository.findById(folderTemplate.getTmplParentFolderId()).orElse(null);
             if (parentFolder != null) {
                 folderTemplate.setTmplParentFolderId(parentFolder.getTemplateId());
             }
         }
 
-        // Save the folder template to the database using the repository
         EILFolderTemplates createdFolderTemplate = folderTemplateRepository.save(folderTemplate);
 
-        // Return the created folder template
         return createdFolderTemplate;
     }
 }

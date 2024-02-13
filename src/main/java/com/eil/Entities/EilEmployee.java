@@ -7,22 +7,12 @@ import java.util.Date;
 @Table(name = "eil_employee")
 public class EilEmployee {
 
-    public EilEmployee(Long employeeId, String firstName, String lastName, Integer age, Date dateOfBirth, EILDiscipline department, String password) {
-        this.employeeId = employeeId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.dateOfBirth = dateOfBirth;
-        this.department = department;
-        this.password = password;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="employeeId")
-    private Long employeeId;
+    @Column(name="employee_id")
+    private Long  employeeId;
 
-    @Column(name="firstName")
+    @Column(name="first_name")
     private String firstName;
 
     @Column(name="lastName")
@@ -32,7 +22,7 @@ public class EilEmployee {
     private Integer age;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="dateOfBirth")
+    @Column(name="date_of_birth")
     private Date dateOfBirth;
 
     @ManyToOne

@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface EilEmployeeService {
     List<EilEmployee> getAllEmployees();
 
-    Optional<EilEmployee> getEmployeeById(Long employeeId);
+     Optional<EilEmployee> getEmployeeById(Long employeeId);
 
     List<EilEmployee> getEmployeesByDepartment(int departmentId);
 
