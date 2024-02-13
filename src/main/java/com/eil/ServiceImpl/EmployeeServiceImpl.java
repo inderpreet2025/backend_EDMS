@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EilEmployeeService {
@@ -20,13 +21,13 @@ public class EmployeeServiceImpl implements EilEmployeeService {
     }
 
     @Override
-    public EilEmployee getEmployeeById(Long employeeId) {
-        return employeeRepository.findById(employeeId).orElse(null);
+    public Optional<EilEmployee> getEmployeeById(Long employeeId) {
+        return employeeRepository.findById(employeeId);
     }
 
     @Override
-    public List<EilEmployee> getEmployeesByDepartment(Long departmentId) {
-        return employeeRepository.findByDepartment_DepartmentID(departmentId);
+    public List<EilEmployee> getEmployeesByDepartment(int departmentId) {
+        return employeeRepository.findByDepartment_DepartmentId(departmentId);
     }
 
     @Override

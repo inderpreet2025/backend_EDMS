@@ -3,13 +3,14 @@ package com.eil.Services;
 import com.eil.Entities.EilEmployee;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EilEmployeeService {
     List<EilEmployee> getAllEmployees();
 
-    EilEmployee getEmployeeById(Long employeeId);
+    Optional<EilEmployee> getEmployeeById(Long employeeId);
 
-    List<EilEmployee> getEmployeesByDepartment(Long departmentId);
+    List<EilEmployee> getEmployeesByDepartment(int departmentId);
 
     EilEmployee login(String username, String password);
 }

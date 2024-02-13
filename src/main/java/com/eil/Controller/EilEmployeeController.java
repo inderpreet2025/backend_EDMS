@@ -3,24 +3,16 @@ package com.eil.Controller;
 import com.eil.Services.EilEmployeeService;
 import com.eil.Entities.EilEmployee;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.sql.Date;
-import java.util.Map;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/employees")
+@RequestMapping("/api/employee")
 public class EilEmployeeController {
 
     @Autowired
@@ -28,16 +20,17 @@ public class EilEmployeeController {
 
     @GetMapping
     public List<EilEmployee> getAllEmployees() {
+
         return employeeService.getAllEmployees();
     }
 
     @GetMapping("/{employeeId}")
-    public EilEmployee getEmployeeById(@PathVariable Long employeeId) {
+    public Optional<EilEmployee> getEmployeeById(@PathVariable Long employeeId) {
         return employeeService.getEmployeeById(employeeId);
     }
 
     @GetMapping("/department/{departmentId}")
-    public List<EilEmployee> getEmployeesByDepartment(@PathVariable Long departmentId) {
+    public List<EilEmployee> getEmployeesByDepartment(@PathVariable int departmentId) {
         return employeeService.getEmployeesByDepartment(departmentId);
     }
 

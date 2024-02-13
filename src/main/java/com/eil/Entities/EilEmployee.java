@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "employees")
+@Table(name = "eil_employee")
 public class EilEmployee {
 
     public EilEmployee(Long employeeId, String firstName, String lastName, Integer age, Date dateOfBirth, EILDiscipline department, String password) {
@@ -19,21 +19,28 @@ public class EilEmployee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="employeeId")
     private Long employeeId;
 
+    @Column(name="firstName")
     private String firstName;
 
+    @Column(name="lastName")
     private String lastName;
 
+    @Column(name="age")
     private Integer age;
 
     @Temporal(TemporalType.DATE)
+    @Column(name="dateOfBirth")
     private Date dateOfBirth;
 
     @ManyToOne
     @JoinColumn(name = "departmentID", referencedColumnName = "departmentID")
     private EILDiscipline department;
 
+
+    @Column(name="password")
     private String password;
 
     public Long getEmployeeId() {
