@@ -2,13 +2,13 @@ package com.eil.Entities;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "EIL_FOLDER_TEMPLATES")
 public class EILFolderTemplates {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TEMPLATEID")
+    @Column(name = "TEMPLATEID", nullable = false, length = 16)
     private String templateId;
 
     @Column(name = "CREATIONDATE", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -17,17 +17,21 @@ public class EILFolderTemplates {
     @Column(name = "TMPLFOLDERID")
     private String tmplFolderId;
 
-    @Column(name = "TMPLFOLDERNAME")
+    @Column(name = "TMPLFOLDERNAME", length = 500)
     private String tmplFolderName;
 
     @Column(name = "TMPLPARENTFOLDERID")
     private String tmplParentFolderId;
 
     @Column(name = "STATICFLAG", columnDefinition = "INT DEFAULT 1")
-    private int staticFlag;
+    private Integer staticFlag;
 
     @Column(name = "PROJECTFLAG", columnDefinition = "INT DEFAULT 1")
-    private int projectFlag;
+    private Integer projectFlag;
+
+    public EILFolderTemplates() {
+        // Default constructor
+    }
 
     public String getTemplateId() {
         return templateId;
@@ -69,19 +73,45 @@ public class EILFolderTemplates {
         this.tmplParentFolderId = tmplParentFolderId;
     }
 
-    public int getStaticFlag() {
+    public Integer getStaticFlag() {
         return staticFlag;
     }
 
-    public void setStaticFlag(int staticFlag) {
+    public void setStaticFlag(Integer staticFlag) {
         this.staticFlag = staticFlag;
     }
 
-    public int getProjectFlag() {
+    public Integer getProjectFlag() {
         return projectFlag;
     }
 
-    public void setProjectFlag(int projectFlag) {
+    public void setProjectFlag(Integer projectFlag) {
         this.projectFlag = projectFlag;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EILFolderTemplates that = (EILFolderTemplates) o;
+        return Objects.equals(templateId, that.templateId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(templateId);
+    }
+
+    @Override
+    public String toString() {
+        return "EILFolderTemplates{" +
+                "templateId='" + templateId + '\'' +
+                ", creationDate=" + creationDate +
+                ", tmplFolderId='" + tmplFolderId + '\'' +
+                ", tmplFolderName='" + tmplFolderName + '\'' +
+                ", tmplParentFolderId='" + tmplParentFolderId + '\'' +
+                ", staticFlag=" + staticFlag +
+                ", projectFlag=" + projectFlag +
+                '}';
     }
 }

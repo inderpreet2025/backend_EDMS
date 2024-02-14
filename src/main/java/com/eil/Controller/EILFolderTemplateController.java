@@ -2,12 +2,13 @@ package com.eil.Controller;
 
 import com.eil.Entities.EILFolderTemplates;
 import com.eil.Services.EILFolderTemplateService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -23,12 +24,27 @@ public class EILFolderTemplateController {
         return ResponseEntity.ok(folderTemplates);
     }
 
-    @PostMapping
-    public ResponseEntity<Void> addFolderTemplate(@RequestBody EILFolderTemplates folderTemplate) {
-        EILFolderTemplates createdFolderTemplate = folderTemplateService.addFolderTemplate(folderTemplate);
 
-        // URI of the newly created resource in the response headers is returned
-        URI location = URI.create("/api/folder-templates/" + createdFolderTemplate.getTemplateId());
-        return ResponseEntity.created(location).build();
+    @PostMapping
+    @Transactional
+    public ResponseEntity<EILFolderTemplates> addFolderTemplate(@RequestBody EILFolderTemplates folderTemplate) throws ChangeSetPersister.NotFoundException {
+        try {
+            System.out.println("Received templateId: " + folderTemplate.getTemplateId());
+
+
+            folderTemplate.setTemplateId(folderTemplate.getTemplateId().trim());
+
+            EILFolderTemplates createdFolderTemplate = folderTemplateService.addFolderTemplate(folderTemplate);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdFolderTemplate);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ChangeSetPersister.NotFoundException();
+        }
     }
+
+
 }
+
+
