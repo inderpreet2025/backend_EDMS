@@ -4,7 +4,6 @@ import com.eil.Entities.EILFolderTemplates;
 import com.eil.Services.EILFolderTemplateService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,26 +24,27 @@ public class EILFolderTemplateController {
     }
 
 
-    @PostMapping
+    @PostMapping("/add-folder")
     @Transactional
-    public ResponseEntity<EILFolderTemplates> addFolderTemplate(@RequestBody EILFolderTemplates folderTemplate) throws ChangeSetPersister.NotFoundException {
+    public ResponseEntity<EILFolderTemplates> addFolder(@RequestBody EILFolderTemplates newFolder) {
         try {
-            System.out.println("Received templateId: " + folderTemplate.getTemplateId());
-
-
-            folderTemplate.setTemplateId(folderTemplate.getTemplateId().trim());
-
-            EILFolderTemplates createdFolderTemplate = folderTemplateService.addFolderTemplate(folderTemplate);
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdFolderTemplate);
-
+            EILFolderTemplates createdFolder = folderTemplateService.addFolder(newFolder);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdFolder);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ChangeSetPersister.NotFoundException();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-
+    @PostMapping("/save-folder-with-template")
+    @Transactional
+    public ResponseEntity<EILFolderTemplates> saveFolderWithTemplate(@RequestBody EILFolderTemplates folder, @RequestBody int template) {
+        try {
+            EILFolderTemplates createdFolder = folderTemplateService.saveFolderWithTemplate(folder, template);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdFolder);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
-
-

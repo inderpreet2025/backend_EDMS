@@ -9,19 +9,19 @@ import java.util.Objects;
 public class EILFolderTemplates {
     @Id
     @Column(name = "TEMPLATEID", nullable = false, length = 16)
-    private String templateId;
+    private int templateId;
 
     @Column(name = "CREATIONDATE", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp creationDate;
 
     @Column(name = "TMPLFOLDERID")
-    private String tmplFolderId;
+    private int tmplFolderId;
 
     @Column(name = "TMPLFOLDERNAME", length = 500)
     private String tmplFolderName;
 
     @Column(name = "TMPLPARENTFOLDERID")
-    private String tmplParentFolderId;
+    private int tmplParentFolderId;
 
     @Column(name = "STATICFLAG", columnDefinition = "INT DEFAULT 1")
     private Integer staticFlag;
@@ -33,11 +33,11 @@ public class EILFolderTemplates {
         // Default constructor
     }
 
-    public String getTemplateId() {
+    public int getTemplateId() {
         return templateId;
     }
 
-    public void setTemplateId(String templateId) {
+    public void setTemplateId(int templateId) {
         this.templateId = templateId;
     }
 
@@ -49,11 +49,11 @@ public class EILFolderTemplates {
         this.creationDate = creationDate;
     }
 
-    public String getTmplFolderId() {
+    public int getTmplFolderId() {
         return tmplFolderId;
     }
 
-    public void setTmplFolderId(String tmplFolderId) {
+    public void setTmplFolderId(int tmplFolderId) {
         this.tmplFolderId = tmplFolderId;
     }
 
@@ -65,11 +65,11 @@ public class EILFolderTemplates {
         this.tmplFolderName = tmplFolderName;
     }
 
-    public String getTmplParentFolderId() {
+    public int getTmplParentFolderId() {
         return tmplParentFolderId;
     }
 
-    public void setTmplParentFolderId(String tmplParentFolderId) {
+    public void setTmplParentFolderId(int tmplParentFolderId) {
         this.tmplParentFolderId = tmplParentFolderId;
     }
 
@@ -114,4 +114,5 @@ public class EILFolderTemplates {
                 ", projectFlag=" + projectFlag +
                 '}';
     }
+
 }

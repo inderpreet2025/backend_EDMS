@@ -3,9 +3,7 @@ package com.eil.Services;
 import com.eil.Entities.EILFolderTemplates;
 import com.eil.Repositories.EILFolderTemplateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
-
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -19,23 +17,40 @@ public class EILFolderTemplateService {
         return folderTemplateRepository.findAll();
     }
 
-
-    public EILFolderTemplates addFolderTemplate(EILFolderTemplates folderTemplate) throws ChangeSetPersister.NotFoundException {
-        folderTemplate.setCreationDate(new Timestamp(System.currentTimeMillis()));
-
-        if (folderTemplate.getTmplParentFolderId() != null) {
-            EILFolderTemplates parentFolder = folderTemplateRepository.findById(folderTemplate.getTmplParentFolderId()).orElse(null);
-
-            if (parentFolder != null) {
-                folderTemplate.setTmplParentFolderId(parentFolder.getTemplateId());
+    public EILFolderTemplates addFolder(EILFolderTemplates newFolder) {
+        try {
+            newFolder.setCreationDate(new Timestamp(System.currentTimeMillis()));
+            if (newFolder.getTmplParentFolderId() != 0) {
+                setParentFolderId(newFolder);
             } else {
-                folderTemplate.setTmplParentFolderId(null);  // have to improve this logic
+                newFolder.setTmplParentFolderId(Integer.parseInt("root_folder"));
             }
+
+            EILFolderTemplates createdFolder = folderTemplateRepository.save(newFolder);
+            return createdFolder;
+        } catch (Exception e) {
+            throw new RuntimeException("Not able to add folder!");
         }
-
-        EILFolderTemplates createdFolderTemplate = folderTemplateRepository.save(folderTemplate);
-
-        return createdFolderTemplate;
     }
 
+    public EILFolderTemplates saveFolderWithTemplate(EILFolderTemplates folder, int template) {
+        try {
+            folder.setCreationDate(new Timestamp(System.currentTimeMillis()));
+            folder.setTemplateId(template);
+            EILFolderTemplates createdFolder = folderTemplateRepository.save(folder);
+            return createdFolder;
+        } catch (Exception e) {
+            throw new RuntimeException("Changes not saved!");
+        }
+    }
+
+    private void setParentFolderId(EILFolderTemplates folderTemplate) {
+        EILFolderTemplates parentFolder = folderTemplateRepository.findById(String.valueOf(folderTemplate.getTmplParentFolderId())).orElse(null);
+
+        if (parentFolder != null) {
+            folderTemplate.setTmplParentFolderId(parentFolder.getTemplateId());
+        } else {
+            folderTemplate.setTmplParentFolderId(Integer.parseInt("root_folder"));
+        }
+    }
 }
