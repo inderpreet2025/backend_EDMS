@@ -9,19 +9,19 @@ import java.util.Objects;
 public class EILFolderTemplates {
     @Id
     @Column(name = "TEMPLATEID", nullable = false, length = 16)
-    private int templateId;
+    private String templateId;
 
     @Column(name = "CREATIONDATE", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp creationDate;
 
     @Column(name = "TMPLFOLDERID")
-    private int tmplFolderId;
+    private String tmplFolderId;
 
     @Column(name = "TMPLFOLDERNAME", length = 500)
     private String tmplFolderName;
 
     @Column(name = "TMPLPARENTFOLDERID")
-    private int tmplParentFolderId;
+    private String tmplParentFolderId;
 
     @Column(name = "STATICFLAG", columnDefinition = "INT DEFAULT 1")
     private Integer staticFlag;
@@ -33,11 +33,11 @@ public class EILFolderTemplates {
         // Default constructor
     }
 
-    public int getTemplateId() {
+    public String getTemplateId() {
         return templateId;
     }
 
-    public void setTemplateId(int templateId) {
+    public void setTemplateId(String templateId) {
         this.templateId = templateId;
     }
 
@@ -49,11 +49,11 @@ public class EILFolderTemplates {
         this.creationDate = creationDate;
     }
 
-    public int getTmplFolderId() {
+    public String getTmplFolderId() {
         return tmplFolderId;
     }
 
-    public void setTmplFolderId(int tmplFolderId) {
+    public void setTmplFolderId(String tmplFolderId) {
         this.tmplFolderId = tmplFolderId;
     }
 
@@ -65,11 +65,11 @@ public class EILFolderTemplates {
         this.tmplFolderName = tmplFolderName;
     }
 
-    public int getTmplParentFolderId() {
+    public String getTmplParentFolderId() {
         return tmplParentFolderId;
     }
 
-    public void setTmplParentFolderId(int tmplParentFolderId) {
+    public void setTmplParentFolderId(String tmplParentFolderId) {
         this.tmplParentFolderId = tmplParentFolderId;
     }
 

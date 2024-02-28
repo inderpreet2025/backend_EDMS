@@ -20,10 +20,10 @@ public class EILFolderTemplateService {
     public EILFolderTemplates addFolder(EILFolderTemplates newFolder) {
         try {
             newFolder.setCreationDate(new Timestamp(System.currentTimeMillis()));
-            if (newFolder.getTmplParentFolderId() != 0) {
+            if (newFolder.getTmplParentFolderId() != null) {
                 setParentFolderId(newFolder);
             } else {
-                newFolder.setTmplParentFolderId(Integer.parseInt("root_folder"));
+                newFolder.setTmplParentFolderId("root_folder");
             }
 
             EILFolderTemplates createdFolder = folderTemplateRepository.save(newFolder);
@@ -33,7 +33,7 @@ public class EILFolderTemplateService {
         }
     }
 
-    public EILFolderTemplates saveFolderWithTemplate(EILFolderTemplates folder, int template) {
+    public EILFolderTemplates saveFolderWithTemplate(EILFolderTemplates folder, String template) {
         try {
             folder.setCreationDate(new Timestamp(System.currentTimeMillis()));
             folder.setTemplateId(template);
@@ -50,7 +50,7 @@ public class EILFolderTemplateService {
         if (parentFolder != null) {
             folderTemplate.setTmplParentFolderId(parentFolder.getTemplateId());
         } else {
-            folderTemplate.setTmplParentFolderId(Integer.parseInt("root_folder"));
+            folderTemplate.setTmplParentFolderId("root_folder");
         }
     }
 }

@@ -38,7 +38,7 @@ public class EILFolderTemplateController {
 
     @PostMapping("/save-folder-with-template")
     @Transactional
-    public ResponseEntity<EILFolderTemplates> saveFolderWithTemplate(@RequestBody EILFolderTemplates folder, @RequestBody int template) {
+    public ResponseEntity<EILFolderTemplates> saveFolderWithTemplate(@RequestBody EILFolderTemplates folder, @RequestBody String template) {
         try {
             EILFolderTemplates createdFolder = folderTemplateService.saveFolderWithTemplate(folder, template);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdFolder);
