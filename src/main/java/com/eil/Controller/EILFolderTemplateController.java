@@ -46,7 +46,7 @@ public class EILFolderTemplateController {
     }
 
     @GetMapping("/template/{templateId}")
-    public ResponseEntity<List<EILFolderTemplates>> getFoldersByTemplate(@PathVariable int templateId) {
+    public ResponseEntity<List<EILFolderTemplates>> getFoldersByTemplate(@PathVariable String templateId) {
         List<EILFolderTemplates> folders = folderTemplateService.getFoldersByTemplate(templateId);
         return ResponseEntity.ok(folders);
     }
@@ -55,7 +55,7 @@ public class EILFolderTemplateController {
     @Transactional
     public ResponseEntity<EILFolderTemplates> saveFolderWithTemplate(
             @RequestBody EILFolderTemplates folder,
-            @RequestParam int templateId) {
+            @RequestParam String templateId) {
         try {
             EILFolderTemplates createdFolder = folderTemplateService.saveFolderWithTemplate(folder, templateId);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdFolder);

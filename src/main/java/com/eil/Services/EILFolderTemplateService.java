@@ -60,7 +60,7 @@ public class EILFolderTemplateService {
         return folder.orElse(null);
     }
 
-    public List<EILFolderTemplates> getFoldersByTemplate(int templateId) {
+    public List<EILFolderTemplates> getFoldersByTemplate(String templateId) {
         return folderTemplateRepository.findByTemplateId(templateId);
     }
 }
