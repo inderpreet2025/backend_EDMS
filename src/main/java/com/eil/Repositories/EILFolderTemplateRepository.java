@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface EILFolderTemplateRepository extends JpaRepository<EILFolderTemplates, String> {
 
-    List<EILFolderTemplates> findByTmplFolderName(String tmplFolderName);
+    List<EILFolderTemplates> findByTemplateId(int templateId);
 }
 

@@ -23,6 +23,15 @@ public class EILFolderTemplateController {
         return ResponseEntity.ok(folderTemplates);
     }
 
+    @GetMapping("/{folderId}")
+    public ResponseEntity<EILFolderTemplates> getFolderById(@PathVariable Long folderId) {
+        EILFolderTemplates folder = folderTemplateService.getFolderById(folderId);
+        if (folder != null) {
+            return ResponseEntity.ok(folder);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @PostMapping("/add-folder")
     @Transactional
@@ -36,11 +45,19 @@ public class EILFolderTemplateController {
         }
     }
 
+    @GetMapping("/template/{templateId}")
+    public ResponseEntity<List<EILFolderTemplates>> getFoldersByTemplate(@PathVariable int templateId) {
+        List<EILFolderTemplates> folders = folderTemplateService.getFoldersByTemplate(templateId);
+        return ResponseEntity.ok(folders);
+    }
+
     @PostMapping("/save-folder-with-template")
     @Transactional
-    public ResponseEntity<EILFolderTemplates> saveFolderWithTemplate(@RequestBody EILFolderTemplates folder, @RequestBody String template) {
+    public ResponseEntity<EILFolderTemplates> saveFolderWithTemplate(
+            @RequestBody EILFolderTemplates folder,
+            @RequestParam int templateId) {
         try {
-            EILFolderTemplates createdFolder = folderTemplateService.saveFolderWithTemplate(folder, template);
+            EILFolderTemplates createdFolder = folderTemplateService.saveFolderWithTemplate(folder, templateId);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdFolder);
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,3 +65,4 @@ public class EILFolderTemplateController {
         }
     }
 }
+
