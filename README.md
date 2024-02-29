@@ -1,1 +1,1 @@
-Have to hande login processing and make further improvements to the folder structure
+Have to make further improvements to the folder structure and implement standard title as well.
